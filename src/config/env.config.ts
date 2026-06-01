@@ -11,8 +11,13 @@ const envConfig = {
   },
 
   database: {
-    MONGO_URI: process.env.MONGO_URI ?? "mongodb://localhost:27017/social_app"
-  }
+    MONGO_URI: process.env.MONGO_URI ?? "mongodb://localhost:27017/social_app",
+  },
+
+  encryption: {
+    ENCRYPTION_KEY: process.env.SECRET_KEY ?? "",
+    IV_LENGTH: process.env.IV_LENGTH ?? "16",
+  },
 };
 
 export default envConfig;

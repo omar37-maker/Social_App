@@ -8,7 +8,7 @@ class AuthService {
     ) { }
     
     health = (body: object) => { 
-        return this.userRepository.findDocuments({}, {})
+        return body
     }
 }
 

@@ -2,6 +2,7 @@ import express, { Application } from "express"
 import { envConfig } from "./config";
 import { authController, commentController, postController, userController } from "./Modules";
 import { dbConnection } from "./DB/db.connection";
+import { globalErrorHandler } from "./Middlewares";
 
 
 const app: Application = express()
@@ -21,6 +22,8 @@ function initializeControllers(app: Application) {
     app.use((_req: express.Request, res: express.Response) => {
       res.status(404).json({ message: "Route not found" });
     });
+
+    app.use(globalErrorHandler)
 }
 
 
@@ -36,17 +39,7 @@ initializeControllers(app)
 
 dbConnection()
 
-
-
-// app.get("/health", (req: Request, res: Response, next: NextFunction) => { 
-//     res.json({
-//         status: "ok",
-//         message: "Health check"
-//     })
-// })
-
 const port: number | string = envConfig.app.port
-
 app.listen(port, () => { 
     console.log("server is running on port", port);
     

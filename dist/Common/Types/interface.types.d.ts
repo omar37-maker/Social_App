@@ -5,4 +5,11 @@ export interface IUser {
     age?: number;
     phoneNumber?: string;
 }
+export interface IHttpAppError {
+    statusCode: number;
+    code: string;
+    details: unknown;
+    message: string;
+    stack: string;
+}
 //# sourceMappingURL=interface.types.d.ts.map

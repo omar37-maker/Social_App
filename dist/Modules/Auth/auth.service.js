@@ -8,7 +8,7 @@ class AuthService {
     constructor(userRepository = new user_repository_1.default) {
         this.userRepository = userRepository;
         this.health = (body) => {
-            return this.userRepository.findDocuments({}, {});
+            return body;
         };
     }
 }

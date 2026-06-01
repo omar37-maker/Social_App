@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const config_1 = require("./config");
 const Modules_1 = require("./Modules");
 const db_connection_1 = require("./DB/db.connection");
+const Middlewares_1 = require("./Middlewares");
 const app = (0, express_1.default)();
 function initializeControllers(app) {
     app.use("/api/auth", Modules_1.authController);
@@ -19,6 +20,7 @@ function initializeControllers(app) {
     app.use((_req, res) => {
         res.status(404).json({ message: "Route not found" });
     });
+    app.use(Middlewares_1.globalErrorHandler);
 }
 function initializeCommentMiddlewares(app) {
     app.use(express_1.default.json());
@@ -26,12 +28,6 @@ function initializeCommentMiddlewares(app) {
 initializeCommentMiddlewares(app);
 initializeControllers(app);
 (0, db_connection_1.dbConnection)();
-// app.get("/health", (req: Request, res: Response, next: NextFunction) => { 
-//     res.json({
-//         status: "ok",
-//         message: "Health check"
-//     })
-// })
 const port = config_1.envConfig.app.port;
 app.listen(port, () => {
     console.log("server is running on port", port);
