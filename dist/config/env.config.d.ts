@@ -10,6 +10,34 @@ declare const envConfig: {
         ENCRYPTION_KEY: string;
         IV_LENGTH: string;
     };
+    jwt: {
+        user: {
+            accessSignature: string;
+            accessExpiration: string | undefined;
+            refreshSignature: string;
+            refreshExpiration: string | undefined;
+        };
+        admin: {
+            accessSignature: string;
+            accessExpiration: string | undefined;
+            refreshSignature: string;
+            refreshExpiration: string | undefined;
+        };
+    };
+    cors: {
+        whiteListedOrigins: string[] | undefined;
+    };
+    gcp: {
+        webClientId: string | undefined;
+    };
+    redis: {
+        url: string;
+    };
+    emails: {
+        service: string | undefined;
+        user: string | undefined;
+        pass: string | undefined;
+    };
 };
 export default envConfig;
 //# sourceMappingURL=env.config.d.ts.map

@@ -13,7 +13,7 @@ export class NotFoundException extends HttpAppError {
 }
 
 export class BadRequestException extends HttpAppError {
-  constructor(message = "Bad Request", details = null) {
+  constructor(message = "Bad Request", details: unknown | null = null) {
     super(message, 400, "BAD_REQUEST", details);
   }
 }

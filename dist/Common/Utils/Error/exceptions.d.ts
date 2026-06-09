@@ -6,7 +6,7 @@ export declare class NotFoundException extends HttpAppError {
     constructor(message?: string, details?: null);
 }
 export declare class BadRequestException extends HttpAppError {
-    constructor(message?: string, details?: null);
+    constructor(message?: string, details?: unknown | null);
 }
 export declare class InternalServerErrorException extends HttpAppError {
     constructor(message?: string, details?: null);

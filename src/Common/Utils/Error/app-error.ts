@@ -3,7 +3,7 @@ export class HttpAppError extends Error {
     message = "An error occured",
     public statusCode = 500,
     public code = "INTERNAL_ERROR",
-    public details = null,
+    public details: unknown = null,
   ) {
     super(message);
   }

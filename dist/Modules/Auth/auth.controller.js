@@ -15,8 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const auth_service_1 = __importDefault(require("./auth.service"));
 const Middlewares_1 = require("../../Middlewares");
+const auth_validators_1 = require("../../validators/auth.validators");
 const authController = (0, express_1.Router)();
-authController.get("/health", (0, Middlewares_1.responseFormatter)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+authController.get("/health", (0, Middlewares_1.validation)(auth_validators_1.AuthSchema), (0, Middlewares_1.responseFormatter)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield auth_service_1.default.health(req.body);
     return { message: "User registered successfully", data: result, meta: { statusCode: 201 } };
 })));

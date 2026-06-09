@@ -1,4 +1,4 @@
-import mongoose, { Model } from "mongoose";
+import mongoose, { Model, Types } from "mongoose";
 
 export default abstract class BaseRepository<T> {
   constructor(protected model: Model<T>) {}
@@ -14,7 +14,7 @@ export default abstract class BaseRepository<T> {
     return this.model.findOne(filters).select(select);
   }
 
-  findDocumentById(id: mongoose.Schema.Types.ObjectId): Promise<T | null> {
+  findDocumentById(id:Types.ObjectId): Promise<T | null> {
     return this.model.findById(id);
   }
 

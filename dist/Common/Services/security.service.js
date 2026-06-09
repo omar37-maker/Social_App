@@ -57,4 +57,5 @@ class SecurityService {
     }
     ;
 }
+exports.default = SecurityService;
 //# sourceMappingURL=security.service.js.map

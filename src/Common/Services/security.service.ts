@@ -4,7 +4,7 @@ import { envConfig } from "../../config/index";
 const encryptionEnv = envConfig.encryption;
 
 class SecurityService {
-  encryptionKey = Buffer.from(encryptionEnv.ENCRYPTION_KEY, "hex");
+  private encryptionKey = Buffer.from(encryptionEnv.ENCRYPTION_KEY, "hex");
 
   encrypt(plainText: string): string {
     // generate iv based on IV_LENGTH
@@ -23,7 +23,7 @@ class SecurityService {
     return `${iv.toString("hex")}:${encrypted}`;
   }
 
-  decrypt(inputCipher: string): string {
+  decrypt (inputCipher: string): string {
     // split cipher  - [ Iv , encryptedData ]
     const [iv, encryptedData] = inputCipher.split(":");
     const bufferedIv = Buffer.from(iv!, "hex");
@@ -52,3 +52,5 @@ class SecurityService {
     return argon2.verify(hashedText, plainText)
   };
 }
+
+export default SecurityService;
