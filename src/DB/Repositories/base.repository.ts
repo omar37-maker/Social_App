@@ -3,7 +3,7 @@ import mongoose, { Model, Types } from "mongoose";
 export default abstract class BaseRepository<T> {
   constructor(protected model: Model<T>) {}
 
-  createDocument(data: T): Promise<T> {
+  createDocument(data: Partial<T>): Promise<T> {
     return this.model.create(data);
   }
 
@@ -11,26 +11,27 @@ export default abstract class BaseRepository<T> {
     filters: mongoose.QueryFilter<T>,
     select = {},
   ): Promise<T | null> {
-    return this.model.findOne(filters).select(select);
+    return this.model.findOne(filters).select(select).exec();
   }
 
-  findDocumentById(id:Types.ObjectId): Promise<T | null> {
-    return this.model.findById(id);
+  findDocumentById(id: Types.ObjectId): Promise<T | null> {
+    return this.model.findById(id).exec();
   }
 
   findDocuments(
     filters: mongoose.QueryFilter<T>,
-    options: mongoose.QueryOptions,
+    options?: { limit?: number; skip?: number } & mongoose.QueryOptions,
   ): Promise<T[]> {
-    const { limit, skip, ...otherOptions } = options;
-    const query = this.model.find(filters, otherOptions);
-    if (limit && skip) {
-      return query.limit(limit).skip(skip);
+    const { limit, skip, ...otherOptions } = options || {};
+    let query = this.model.find(filters, otherOptions);
+    if (limit) {
+      query = query.limit(limit);
     }
-    return query;
+    if (skip) {
+      query = query.skip(skip);
+    }
+    return query.exec();
   }
-
- 
 
   //   updateDocument({ filters, data, options }) {
   //     return this.model.updateOne(filters, data, options);

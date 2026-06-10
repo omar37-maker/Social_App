@@ -1,4 +1,5 @@
 import  z  from "zod";
-import { AuthSchema } from "../../validators/auth.validators";
+import { SignUpSchema, SignInSchema } from "../../validators/auth.validators";
 
-export type AuthBodyType = z.infer<typeof AuthSchema.body>;
+export type SignUpBodyType = z.infer<typeof SignUpSchema.body>;
+export type SignInBodyType = z.infer<typeof SignInSchema.body>

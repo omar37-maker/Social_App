@@ -1,7 +1,7 @@
 import { HttpAppError } from "./app-error.js";
 
 export class ConflictException extends HttpAppError {
-  constructor(message = "Conflict", details = null) {
+  constructor(message = "Conflict", details:unknown = null) {
     super(message, 409, "CONFLICT", details);
   }
 }
@@ -19,13 +19,13 @@ export class BadRequestException extends HttpAppError {
 }
 
 export class InternalServerErrorException extends HttpAppError {
-  constructor(message = "Internal Server Error", details = null) {
+  constructor(message = "Internal Server Error", details:unknown = null) {
     super(message, 500, "INTERNAL_SERVER_ERROR", details);
   }
 }
 
 export class TooManyRequestsException extends HttpAppError {
-  constructor(message = "Too Many Requests", details = null) {
+  constructor(message = "Too Many Requests", details: unknown = null) {
     super(message, 429, "TOO_MANY_REQUESTS", details);
   }
 }

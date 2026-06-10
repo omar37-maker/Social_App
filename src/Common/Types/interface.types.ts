@@ -7,7 +7,22 @@ import jwt, {
   SignOptions,
   VerifyOptions,
 } from "jsonwebtoken";
-import { TOKEN_TYPES } from "./enum.type";
+import { GENDER, PROVIDERS, STATUS, TOKEN_TYPES, USER_ROLES } from "./enum.type";
+
+
+export interface IWorkExperience { 
+  company: string;
+  position: string;
+  startDate?: Date | string;
+  endDate: Date | string;
+  currentlyWorking: boolean;
+}
+
+export interface IOTP { 
+  value: string;
+  expiresAt: Date;
+  channel: string;
+}
 
 
 export interface IUser {
@@ -15,8 +30,19 @@ export interface IUser {
   firstName: string;
   lastName: string;
   email: string;
+  password: string;
   age?: number;
-  phoneNumber?: string;
+  phoneNumber?: string | undefined;
+  role: USER_ROLES;
+  gender: GENDER
+  status: STATUS;
+  profilePicture?: string;
+  coverPicture?: string[];
+  isEmailVerified?: boolean;
+  OTPs?: IOTP[]
+  workExperience?: IWorkExperience[]
+  provider: PROVIDERS;
+  googleSub?: string;
 }
 
 export interface IHttpAppError {
@@ -42,7 +68,7 @@ export interface VerifyTokenPayload {
 export interface ICreateCredentialsPayload {
   payload: string | Buffer | object;
   options: { access: SignOptions; refresh: SignOptions };
-  requiredToken: TOKEN_TYPES;
+  requiredToken?: TOKEN_TYPES;
 }
 
 export interface ISignatures {
