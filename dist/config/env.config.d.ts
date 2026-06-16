@@ -38,6 +38,12 @@ declare const envConfig: {
         user: string | undefined;
         pass: string | undefined;
     };
+    s3: {
+        accessKeyId: string;
+        secretAccessKey: string;
+        region: string;
+        bucketName: string;
+    };
 };
 export default envConfig;
 //# sourceMappingURL=env.config.d.ts.map

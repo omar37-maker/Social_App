@@ -1,5 +1,5 @@
 "use strict";
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = require("dotenv");
 (0, dotenv_1.config)({
@@ -45,6 +45,12 @@ const envConfig = {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
     },
+    s3: {
+        accessKeyId: (_l = process.env.AWS_ACCESS_KEY_ID) !== null && _l !== void 0 ? _l : "",
+        secretAccessKey: (_m = process.env.AWS_SECRET_ACCESS_KEY) !== null && _m !== void 0 ? _m : "",
+        region: (_o = process.env.AWS_REGION) !== null && _o !== void 0 ? _o : "",
+        bucketName: (_p = process.env.AWS_BUCKET_NAME) !== null && _p !== void 0 ? _p : ""
+    }
 };
 exports.default = envConfig;
 //# sourceMappingURL=env.config.js.map
