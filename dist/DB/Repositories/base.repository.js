@@ -19,21 +19,18 @@ class BaseRepository {
         return this.model.create(data);
     }
     findOneDocument(filters, select = {}) {
-        return this.model.findOne(filters).select(select).exec();
+        return this.model.findOne(filters).select(select);
     }
     findDocumentById(id) {
-        return this.model.findById(id).exec();
+        return this.model.findById(id);
     }
     findDocuments(filters, options) {
         const _a = options || {}, { limit, skip } = _a, otherOptions = __rest(_a, ["limit", "skip"]);
-        let query = this.model.find(filters, otherOptions);
-        if (limit) {
-            query = query.limit(limit);
+        const query = this.model.find(filters, otherOptions);
+        if (limit && skip) {
+            return query.limit(limit).skip(skip);
         }
-        if (skip) {
-            query = query.skip(skip);
-        }
-        return query.exec();
+        return query;
     }
 }
 exports.default = BaseRepository;

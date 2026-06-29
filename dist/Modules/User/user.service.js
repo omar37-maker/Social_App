@@ -9,16 +9,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const file_service_1 = require("./../../Common/Services/file.service");
+const Services_1 = require("./../../Common/Services");
 class UserService {
-    constructor(fileService = new file_service_1.FileService()) {
+    constructor(fileService = new Services_1.FileService()) {
         this.fileService = fileService;
     }
     uploadProfilePicture(file) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.fileService.UploadFile(file, "profiles");
+            return this.fileService.UploadFile(file, "Profiles");
+        });
+    }
+    uploadCoverPictures(files, user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return Promise.all(files.map((file) => this.fileService.UploadFile(file, "Covers")));
+        });
+    }
+    renewExpiredUrl(keys) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return Promise.all(keys.map((key) => this.fileService.getSignedUrl(key, 60)));
+        });
+    }
+    deleteFile(key) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.fileService.deleteFile(key);
         });
     }
 }
-exports.default = new UserService(new file_service_1.FileService());
+exports.default = new UserService(new Services_1.FileService());
 //# sourceMappingURL=user.service.js.map

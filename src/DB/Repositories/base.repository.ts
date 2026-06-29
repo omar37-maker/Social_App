@@ -11,26 +11,20 @@ export default abstract class BaseRepository<T> {
     filters: mongoose.QueryFilter<T>,
     select = {},
   ): Promise<T | null> {
-    return this.model.findOne(filters).select(select).exec();
+    return this.model.findOne(filters).select(select);
   }
 
   findDocumentById(id: Types.ObjectId): Promise<T | null> {
-    return this.model.findById(id).exec();
+    return this.model.findById(id);
   }
 
-  findDocuments(
-    filters: mongoose.QueryFilter<T>,
-    options?: { limit?: number; skip?: number } & mongoose.QueryOptions,
-  ): Promise<T[]> {
+  findDocuments(filters: any, options?: mongoose.QueryOptions): Promise<T[]> {
     const { limit, skip, ...otherOptions } = options || {};
-    let query = this.model.find(filters, otherOptions);
-    if (limit) {
-      query = query.limit(limit);
+    const query = this.model.find(filters, otherOptions);
+    if (limit && skip) {
+      return query.limit(limit).skip(skip);
     }
-    if (skip) {
-      query = query.skip(skip);
-    }
-    return query.exec();
+    return query;
   }
 
   //   updateDocument({ filters, data, options }) {

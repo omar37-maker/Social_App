@@ -1,5 +1,6 @@
 import { S3Client } from "../Clients/s3.client";
 import { BadRequestException } from "../Utils";
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 
 
@@ -16,6 +17,15 @@ export class FileService extends S3Client {
 
         return this.putObjectClient(file, filekey)
 
+    }
+
+    async getSignedUrl(key: string, expiresIn: number = 60) { 
+        return this.getSignedUrlClient(key,expiresIn)
+    }
+
+    async deleteFile(key: string) { 
+        if(!key) throw new BadRequestException("Key is required")
+        return this.deleteObjectClient(key)
     }
 }
 

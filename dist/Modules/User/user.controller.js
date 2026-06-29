@@ -20,6 +20,23 @@ userController.post("/upload-profile", Middlewares_1.upload.single("profile"), (
     if (!req.file)
         return res.status(400).json({ message: "No file uploaded" });
     const result = yield user_service_1.default.uploadProfilePicture(req.file);
+    return res.status(200).json(result);
+}));
+userController.post("/upload-cover", Middlewares_1.upload.array("cover"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!req.files)
+        return res.status(400).json({ message: "No files uploaded" });
+    const result = yield user_service_1.default.uploadCoverPictures(req.files);
+    return res.status(200).json(result);
+}));
+userController.post("/renew-expired-url", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { keys } = req.body;
+    const result = yield user_service_1.default.renewExpiredUrl(keys);
+    return res.status(200).json(result);
+}));
+userController.delete("/delete-file", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { key } = req.body;
+    const result = yield user_service_1.default.deleteFile(key);
+    return res.status(200).json(result);
 }));
 exports.default = userController;
 //# sourceMappingURL=user.controller.js.map

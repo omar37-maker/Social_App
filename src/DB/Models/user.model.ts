@@ -67,7 +67,7 @@ const userSchema = new mongoose.Schema<IUser>(
       default: PROVIDERS.SYSTEM,
     },
     profilePicture: String,
-    coverPicture: String,
+    coverPicture: [String],
     isEmailVerified: {
       type: Boolean,
       default: false,

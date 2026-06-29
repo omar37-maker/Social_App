@@ -23,6 +23,18 @@ class FileService extends s3_client_1.S3Client {
             return this.putObjectClient(file, filekey);
         });
     }
+    getSignedUrl(key_1) {
+        return __awaiter(this, arguments, void 0, function* (key, expiresIn = 60) {
+            return this.getSignedUrlClient(key, expiresIn);
+        });
+    }
+    deleteFile(key) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!key)
+                throw new Utils_1.BadRequestException("Key is required");
+            return this.deleteObjectClient(key);
+        });
+    }
 }
 exports.FileService = FileService;
 exports.default = FileService;

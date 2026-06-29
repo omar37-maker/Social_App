@@ -12,10 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.S3Client = void 0;
 const client_s3_1 = require("@aws-sdk/client-s3");
 const config_1 = require("../../config");
+const s3_request_presigner_1 = require("@aws-sdk/s3-request-presigner");
 const s3Config = config_1.envConfig.s3;
 class S3Client {
     constructor() {
-        this.S3Client = new client_s3_1.S3Client({
+        this.s3Client = new client_s3_1.S3Client({
             region: s3Config.region,
             credentials: {
                 accessKeyId: s3Config.accessKeyId,
@@ -33,7 +34,26 @@ class S3Client {
                 Body: file.buffer,
                 ContentType: file.mimetype
             });
-            return this.S3Client.send(command);
+            return this.s3Client.send(command);
+        });
+    }
+    getSignedUrlClient(key_1) {
+        return __awaiter(this, arguments, void 0, function* (key, expiresIn = 60) {
+            const command = new client_s3_1.GetObjectCommand({
+                Bucket: this.bucketName,
+                Key: key
+            });
+            const url = yield (0, s3_request_presigner_1.getSignedUrl)(this.s3Client, command, { expiresIn });
+            return { key, url };
+        });
+    }
+    deleteObjectClient(key) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const command = new client_s3_1.DeleteObjectCommand({
+                Bucket: this.bucketName,
+                Key: key
+            });
+            return this.s3Client.send(command);
         });
     }
 }
